@@ -141,17 +141,17 @@
       left: 0;
       right: 0;
       z-index: 50;
-      padding: 0.85rem 1.25rem;
+      padding: 0.75rem 1.25rem;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      background: linear-gradient(to bottom, rgba(3, 7, 18, 0.96), rgba(3, 7, 18, 0.88), transparent);
+      background: linear-gradient(to bottom, rgba(3, 7, 18, 0.97), rgba(3, 7, 18, 0.92), transparent);
       border-bottom: 1px solid rgba(15, 23, 42, 0.9);
     }
 
     .logo {
       font-weight: 900;
-      font-size: 1.3rem;
-      letter-spacing: 0.2em;
+      font-size: 1.25rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
     }
 
@@ -159,7 +159,7 @@
     .hero-section {
       position: relative;
       overflow: hidden;
-      padding-top: 7.5rem;
+      padding-top: 7.2rem;
       padding-bottom: 4.5rem;
       min-height: 100vh;
       display: flex;
@@ -170,10 +170,11 @@
       position: absolute;
       inset: 0;
       z-index: -10;
+      /* toned down emerald – darker overall */
       background:
-        radial-gradient(circle at 0% 0%, #064E3B 0, transparent 45%),
-        radial-gradient(circle at 100% 20%, #022C22 0, transparent 55%),
-        radial-gradient(circle at 50% 100%, #020617 0, #020617 70%);
+        radial-gradient(circle at 0% 0%, #0f172a 0, transparent 42%),
+        radial-gradient(circle at 100% 10%, #022C22 0, transparent 52%),
+        radial-gradient(circle at 50% 100%, #020617 0, #020617 72%);
     }
 
     .hero-grid,
@@ -329,19 +330,19 @@
     .abstract-graphic {
       position: absolute;
       z-index: 1;
-      opacity: 0.2;
+      opacity: 0.18;
       pointer-events: none;
       color: var(--color-text);
     }
 
     .abstract-orb {
-      top: 8%;
-      left: -10%;
+      top: 12%;
+      left: -18%;
       width: 200px;
       height: 200px;
-      background: radial-gradient(circle at 30% 30%, rgba(16,185,129,0.9), transparent 65%);
+      background: radial-gradient(circle at 30% 30%, rgba(16,185,129,0.8), transparent 65%);
       border-radius: 999px;
-      filter: blur(40px);
+      filter: blur(45px);
       animation: float 12s infinite ease-in-out;
     }
 
@@ -355,7 +356,7 @@
 
     @keyframes float {
       0%, 100% { transform: translateY(0) translateX(0); }
-      50% { transform: translateY(-22px) translateX(12px); }
+      50% { transform: translateY(-18px) translateX(10px); }
     }
 
     @keyframes rotate {
@@ -387,6 +388,14 @@
       font-size: 0.8rem;
     }
 
+    /* MOBILE NAV MENU */
+    .mobile-menu {
+      background: rgba(3, 7, 18, 0.98);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.9);
+    }
+
     /* GRID BREAKPOINTS */
     @media (min-width: 768px) {
       .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -412,11 +421,22 @@
     }
 
     @media (max-width: 767px) {
-      .hero-section { padding-top: 6.5rem; }
+      .hero-section { padding-top: 6.6rem; }
       .hero-ctas { flex-direction: column; width: 100%; }
       .hero-ctas a { width: 100%; }
-      .logo { font-size: 1.1rem; }
-      .cta-float { bottom: 1.1rem; right: 1.1rem; }
+      .logo { font-size: 1.08rem; letter-spacing: 0.2em; }
+
+      /* mobile hero bg darker, less green */
+      .hero-bg-gradient {
+        background:
+          radial-gradient(circle at 50% 0%, #020817 0, transparent 45%),
+          radial-gradient(circle at 50% 100%, #020617 0, #020617 75%);
+      }
+      .abstract-orb {
+        opacity: 0.25;
+        top: 18%;
+        left: -25%;
+      }
     }
   </style>
 </head>
@@ -427,6 +447,7 @@
     <div class="max-w-7xl mx-auto flex justify-between items-center">
       <div class="logo tracking-[0.25em]">DevFusions</div>
 
+      <!-- Desktop nav -->
       <nav class="hidden lg:flex space-x-6 text-[0.7rem] font-medium uppercase tracking-[0.16em]">
         <a href="#home" class="text-gray-300 hover:text-emerald-300">Home</a>
         <a href="#services" class="text-gray-300 hover:text-emerald-300">Services</a>
@@ -440,7 +461,26 @@
         <a href="#contact" class="btn primary-btn text-[0.72rem] hidden sm:inline-flex">
           Get Quote
         </a>
+
+        <!-- Mobile hamburger -->
+        <button id="mobile-menu-toggle"
+                class="lg:hidden inline-flex items-center justify-center w-9 h-9 rounded-full border border-slate-700/80 bg-black/60 text-gray-200"
+                aria-label="Toggle menu">
+          <i id="mobile-menu-icon" class="fas fa-bars text-sm"></i>
+        </button>
       </div>
+    </div>
+
+    <!-- Mobile nav menu -->
+    <div id="mobile-menu" class="mobile-menu lg:hidden hidden">
+      <nav class="px-4 pt-3 pb-4 space-y-2 text-[0.8rem] font-medium uppercase tracking-[0.18em]">
+        <a href="#home" class="block py-1.5 text-gray-300 hover:text-emerald-300 mobile-nav-link">Home</a>
+        <a href="#services" class="block py-1.5 text-gray-300 hover:text-emerald-300 mobile-nav-link">Services</a>
+        <a href="#work" class="block py-1.5 text-gray-300 hover:text-emerald-300 mobile-nav-link">Work</a>
+        <a href="#process" class="block py-1.5 text-gray-300 hover:text-emerald-300 mobile-nav-link">Process</a>
+        <a href="#reviews" class="block py-1.5 text-gray-300 hover:text-emerald-300 mobile-nav-link">Reviews</a>
+        <a href="#contact" class="block py-1.5 text-gray-300 hover:text-emerald-300 mobile-nav-link">Contact</a>
+      </nav>
     </div>
   </header>
 
@@ -554,7 +594,7 @@
       </div>
     </section>
 
-    <!-- TRUST STRIP (UNIQUE STUDIO / BADGES) -->
+    <!-- TRUST STRIP -->
     <section class="trust-strip">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
         <div class="glass-effect rounded-2xl px-4 sm:px-6 py-3 flex flex-col md:flex-row items-center justify-between gap-3 border border-emerald-900/80 bg-gradient-to-r from-slate-950/95 via-slate-900/90 to-emerald-950/60">
@@ -850,7 +890,7 @@
       </div>
     </section>
 
-    <!-- GOOGLE STYLE REVIEWS (WITH MORE FEEDBACK) -->
+    <!-- REVIEWS -->
     <section id="reviews" class="section">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
         <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-6">
@@ -1149,6 +1189,28 @@
       }, observerOptions);
 
       sections.forEach(section => observer.observe(section));
+
+      // Mobile menu toggle
+      const mobileToggle = document.getElementById('mobile-menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileIcon = document.getElementById('mobile-menu-icon');
+
+      if (mobileToggle && mobileMenu && mobileIcon) {
+        mobileToggle.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+          mobileIcon.classList.toggle('fa-bars');
+          mobileIcon.classList.toggle('fa-times');
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            mobileIcon.classList.add('fa-bars');
+            mobileIcon.classList.remove('fa-times');
+          });
+        });
+      }
     });
   </script>
 </body>
